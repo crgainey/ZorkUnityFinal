@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Linq;
 using Newtonsoft.Json;
 
 namespace Zork
@@ -20,8 +21,14 @@ namespace Zork
         [JsonProperty(PropertyName = "Neighbors", Order = 3)]
         private Dictionary<Directions, string> NeighborNames { get; set; } = new Dictionary<Directions, string>();
 
+        [JsonProperty(PropertyName = "Items", Order = 4)]
+        private List<string> ItemNames { get; set; } = new List<string>();
+
         [JsonIgnore]
         public IReadOnlyDictionary<Directions, Room> Neighbors => _neighbors;
+
+        [JsonIgnore]
+        public List<Item> Items => _items;
 
         public Room(string name = null)
         {
@@ -53,6 +60,16 @@ namespace Zork
 
         public override int GetHashCode() => Name.GetHashCode();
 
+        public void UpdateItems(World world)
+        {
+            _items = (from itemName in ItemNames
+                           let item = world.Items.Find(i => i.Name.Equals(itemName, StringComparison.InvariantCultureIgnoreCase))
+                           where item != null
+                           select item).ToList();
+
+            ItemNames.Clear();
+        }
+
         public void UpdateNeighbors(World world)
         {
             _neighbors.Clear();
@@ -75,5 +92,6 @@ namespace Zork
         }
 
         private Dictionary<Directions, Room> _neighbors = new Dictionary<Directions, Room>();
+        private List<Item> _items = new List<Item>();
     }
 }

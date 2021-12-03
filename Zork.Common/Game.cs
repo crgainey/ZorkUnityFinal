@@ -42,6 +42,7 @@ namespace Zork
                 { "LOOK", new Command("LOOK", new string[] { "LOOK", "L" }, Look) },
                 { "REWARD", new Command("REWARD", new string[] { "REWARD", "R" }, Reward) },
                 { "SCORE", new Command("SCORE", new string[] { "SCORE" }, Score) },
+                { "INVENTORY", new Command("INVENTORY", new string[] { "INVENTORY", "I" }, Inventory) },
                 { "NORTH", new Command("NORTH", new string[] { "NORTH", "N" }, game => Move(game, Directions.North)) },
                 { "SOUTH", new Command("SOUTH", new string[] { "SOUTH", "S" }, game => Move(game, Directions.South)) },
                 { "EAST", new Command("EAST", new string[] { "EAST", "E"}, game => Move(game, Directions.East)) },
@@ -103,16 +104,39 @@ namespace Zork
             }
         }
 
-        public static void Look(Game game) => game.Output.WriteLine($"{game.Player.Location}\n {game.Player.Location.Description}");
+        public static void Look(Game game)
+        {
+            game.Output.WriteLine($"{game.Player.Location}\n {game.Player.Location.Description}");
+
+            foreach (Item item in game.Player.Location.Items)
+            {
+                game.Output.WriteLine(item.Name);
+            }
+        }
+
+        public static void Inventory(Game game)
+        {
+            if(game.Player.Inventory.Count == 0)
+            {
+                game.Output.WriteLine("You are empty handed.");
+            }
+            else
+            {
+                foreach(Item item in game.Player.Inventory)
+                {
+                    game.Output.WriteLine(item.Name);
+                }
+            }
+        }
+
+        public static void Reward(Game game) => game.Player.CurrentScore += 5;
+        public static void Score(Game game) => game.Output.WriteLine($"Your score would be {game.Player.CurrentScore}, in {game.Player.NumberOfMoves} move(s).");
 
         public static void Quit(Game game)
         {
             game.IsRunning = false;
             game.Output.WriteLine(string.IsNullOrWhiteSpace(game.ExitMessage) ? "Thank you for playing!" : game.ExitMessage);
         }
-
-        public static void Reward(Game game) => game.Player.CurrentScore += 5;
-        public static void Score(Game game) => game.Output.WriteLine($"Your score would be {game.Player.CurrentScore}, in {game.Player.NumberOfMoves} move(s).");
     }
     
 }
