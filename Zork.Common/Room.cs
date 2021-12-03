@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Linq;
 using Newtonsoft.Json;
 
 namespace Zork
@@ -23,9 +24,18 @@ namespace Zork
         [JsonIgnore]
         public IReadOnlyDictionary<Directions, Room> Neighbors => _neighbors;
 
-        public Room(string name = null)
+        //[JsonProperty(PropertyName = "ItemsInRoom", Order = 4)]
+        //public List<string> ItemsInRoomNames { get; set; }
+
+        //[JsonIgnore]
+        //public List<Item> ItemsInRoom { get; set; }
+
+
+        public Room(string name = null, List<string> itemsInRoomNames = null)
         {
             Name = name;
+            //ItemsInRoomNames = itemsInRoomNames ?? new List<string>();
+           //ItemsInRoom = new List<Item>();
         }
 
         public static bool operator ==(Room lhs, Room rhs)
@@ -53,6 +63,23 @@ namespace Zork
 
         public override int GetHashCode() => Name.GetHashCode();
 
+        //public void UpdateItemsInRoom(World world)
+        //{
+        //    ItemsInRoom = (from itemName in ItemsInRoomNames
+        //                   let item = world.Items.Find(i => i.Name.Equals(itemName, StringComparison.InvariantCultureIgnoreCase))
+        //                   where item != null
+        //                   select item).ToList();
+
+        //    ItemsInRoomNames.Clear();
+        //    //_items.Clear();
+        //    //foreach(var entry in ItemsInRoomNames)
+        //    //{
+        //    //    _items.Add(world.ItemsByName[entry]);
+        //    //}
+
+
+        //}
+
         public void UpdateNeighbors(World world)
         {
             _neighbors.Clear();
@@ -75,5 +102,6 @@ namespace Zork
         }
 
         private Dictionary<Directions, Room> _neighbors = new Dictionary<Directions, Room>();
+        //private List<Item> _items = new List<Item>();
     }
 }

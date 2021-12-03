@@ -40,6 +40,7 @@ namespace Zork
             {
                 { "QUIT", new Command("QUIT", new string[] { "QUIT", "Q", "BYE" }, Quit) },
                 { "LOOK", new Command("LOOK", new string[] { "LOOK", "L" }, Look) },
+                { "INVENTORY", new Command("INVENTORY", new string[] { "INVENTORY", "I" }, Inventory) },
                 { "REWARD", new Command("REWARD", new string[] { "REWARD", "R" }, Reward) },
                 { "SCORE", new Command("SCORE", new string[] { "SCORE" }, Score) },
                 { "NORTH", new Command("NORTH", new string[] { "NORTH", "N" }, game => Move(game, Directions.North)) },
@@ -111,6 +112,10 @@ namespace Zork
             game.Output.WriteLine(string.IsNullOrWhiteSpace(game.ExitMessage) ? "Thank you for playing!" : game.ExitMessage);
         }
 
+        public static void Inventory(Game game)
+        {
+            game.Output.WriteLine($"{game.Player.Items}");
+        }
         public static void Reward(Game game) => game.Player.CurrentScore += 5;
         public static void Score(Game game) => game.Output.WriteLine($"Your score would be {game.Player.CurrentScore}, in {game.Player.NumberOfMoves} move(s).");
     }

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using Newtonsoft.Json;
 
 namespace Zork
@@ -52,6 +53,18 @@ namespace Zork
             }
         }
 
+        public List<Item> Items
+        {
+            get => _items;
+            set
+            {
+                if(_items != value)
+                {
+                    _items = value;
+                }
+            }
+        }
+
 
         public Player(World world, string startingLocation)
         {
@@ -60,6 +73,7 @@ namespace Zork
 
             World = world;
             Location = world.RoomsByName[startingLocation];
+            Items = new List<Item>();
         }
 
         public bool Move(Directions direction)
@@ -74,6 +88,7 @@ namespace Zork
         }
 
         private Room _location;
+        private List<Item> _items;
         private int _moves;
         private int _score;
     }

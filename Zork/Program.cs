@@ -18,10 +18,16 @@ namespace Zork
             output.WriteLine(string.IsNullOrWhiteSpace(game.WelcomeMessage) ? "Welcome to Zork!" : game.WelcomeMessage);
             game.Start(input,output);
             Game.Look(game);
+            output.WriteLine(game.World.Items);
+            output.WriteLine(game.World.Rooms);
+            output.WriteLine(game.World.RoomsByName);
+            output.WriteLine(game.Player.Location);
+            output.WriteLine(game.Player.Items);
+
 
             while (game.IsRunning)
             {
-                output.Write("\n>");
+                output.Write(">");
                 input.ProcessInput();
             }
             
