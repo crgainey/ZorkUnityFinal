@@ -43,6 +43,8 @@ namespace Zork
                 { "REWARD", new Command("REWARD", new string[] { "REWARD", "R" }, Reward) },
                 { "SCORE", new Command("SCORE", new string[] { "SCORE" }, Score) },
                 { "INVENTORY", new Command("INVENTORY", new string[] { "INVENTORY", "I" }, Inventory) },
+                { "TAKE", new Command("TAKE", new string[] { "TAKE", "T" }, TakeItem) },
+                { "DROP", new Command("INVENTORY", new string[] { "DROP", "D" }, DropItem) },
                 { "NORTH", new Command("NORTH", new string[] { "NORTH", "N" }, game => Move(game, Directions.North)) },
                 { "SOUTH", new Command("SOUTH", new string[] { "SOUTH", "S" }, game => Move(game, Directions.South)) },
                 { "EAST", new Command("EAST", new string[] { "EAST", "E"}, game => Move(game, Directions.East)) },
@@ -110,7 +112,7 @@ namespace Zork
 
             foreach (Item item in game.Player.Location.Items)
             {
-                game.Output.WriteLine(item.Name);
+                game.Output.WriteLine($"{item.Name} {item.Description}");
             }
         }
 
@@ -127,6 +129,16 @@ namespace Zork
                     game.Output.WriteLine(item.Name);
                 }
             }
+        }
+
+        public static void TakeItem()
+        {
+
+        }
+
+        public static void DropItem()
+        {
+
         }
 
         public static void Reward(Game game) => game.Player.CurrentScore += 5;

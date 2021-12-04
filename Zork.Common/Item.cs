@@ -15,5 +15,9 @@ namespace Zork
         [JsonProperty(Order = 2)]
         public string Description { get; set; }
 
+        [JsonProperty(Order = 3)]
+        public bool IsTakeable { get; set; }
+
+
     }
 }
