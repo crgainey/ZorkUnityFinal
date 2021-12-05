@@ -15,9 +15,7 @@ namespace Zork
             ConsoleInputService input = new ConsoleInputService();
             ConsoleOutputService output = new ConsoleOutputService();
 
-            output.WriteLine(string.IsNullOrWhiteSpace(game.WelcomeMessage) ? "Welcome to Zork!" : game.WelcomeMessage);
             game.Start(input,output);
-            Game.Look(game);
 
             while (game.IsRunning)
             {

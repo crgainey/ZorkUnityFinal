@@ -30,26 +30,33 @@ namespace Zork
         public bool IsRunning { get; set; }
         [JsonIgnore]
         public Dictionary<string, Command> Commands { get; private set; }
+        [JsonIgnore]
+        public CommandManager CommandManager { get; }
 
         public Game(World world, Player player)
         {
             World = world;
             Player = player;
-
-            Commands = new Dictionary<string, Command>()
+        }
+        public Game()
+        {
+            Command[] commands =
             {
-                { "QUIT", new Command("QUIT", new string[] { "QUIT", "Q", "BYE" }, Quit) },
-                { "LOOK", new Command("LOOK", new string[] { "LOOK", "L" }, Look) },
-                { "REWARD", new Command("REWARD", new string[] { "REWARD", "R" }, Reward) },
-                { "SCORE", new Command("SCORE", new string[] { "SCORE" }, Score) },
-                { "INVENTORY", new Command("INVENTORY", new string[] { "INVENTORY", "I" }, Inventory) },
-                { "TAKE", new Command("TAKE", new string[] { "TAKE", "T" }, TakeItem) },
-                { "DROP", new Command("INVENTORY", new string[] { "DROP", "D" }, DropItem) },
-                { "NORTH", new Command("NORTH", new string[] { "NORTH", "N" }, game => Move(game, Directions.North)) },
-                { "SOUTH", new Command("SOUTH", new string[] { "SOUTH", "S" }, game => Move(game, Directions.South)) },
-                { "EAST", new Command("EAST", new string[] { "EAST", "E"}, game => Move(game, Directions.East)) },
-                { "WEST", new Command("WEST", new string[] { "WEST", "W" }, game => Move(game, Directions.West)) },
+                new Command("QUIT", new string[] { "QUIT", "Q", "BYE" }, Quit),
+                new Command("LOOK", new string[] { "LOOK", "L" }, Look),
+                new Command("REWARD", new string[] { "REWARD", "R" }, Reward),
+                new Command("SCORE", new string[] { "SCORE" }, Score),
+                new Command("INVENTORY", new string[] { "INVENTORY", "I" }, Inventory),
+                new Command("TAKE", new string[] { "TAKE", "T" }, TakeItem),
+                new Command("DROP", new string[] { "DROP", "D" }, DropItem),
+                new Command("NORTH", new string[] { "NORTH", "N" }, MovementCommands.North),
+                new Command("SOUTH", new string[] { "SOUTH", "S" }, MovementCommands.South),
+                new Command("WEST", new string[] { "WEST", "W" }, MovementCommands.West),
+                new Command("EAST", new string[] { "EAST", "E" }, MovementCommands.East)
+
             };
+
+            CommandManager = new CommandManager(commands);
         }
 
         [OnDeserialized]
@@ -64,30 +71,23 @@ namespace Zork
             Assert.IsNotNull(output);
             Output = output;
 
+            output.WriteLine(string.IsNullOrWhiteSpace(WelcomeMessage) ? "Welcome to Zork!" : WelcomeMessage);
+            CommandManager.PreformCommand(this, "LOOK");
+
             IsRunning = true;
         }
 
         private void InputRecievedHandler(object sender, string commandString)
         {
             Room previousRoom = Player.Location;
-            Command foundCommand = null;
-            foreach (Command command in Commands.Values)
+            
+            if (CommandManager.PreformCommand(this, commandString))
             {
-                if (command.Verbs.Contains(commandString))
-                {
-                    foundCommand = command;
-                    break;
-                }
-            }
-
-            if (foundCommand != null)
-            {
-                foundCommand.Action(this);
                 Player.NumberOfMoves++;
 
                 if (previousRoom != Player.Location)
                 {
-                    Look(this);
+                    CommandManager.PreformCommand(this, "LOOK");
                     previousRoom = Player.Location;
                 }
             }
@@ -98,15 +98,7 @@ namespace Zork
 
         }
 
-        static void Move(Game game, Directions direction)
-        {
-            if (game.Player.Move(direction) == false)
-            {
-                game.Output.WriteLine("The way is shut!");
-            }
-        }
-
-        public static void Look(Game game)
+        public static void Look(Game game, CommandContext commandContext)
         {
             game.Output.WriteLine($"{game.Player.Location}\n {game.Player.Location.Description}");
 
@@ -116,39 +108,45 @@ namespace Zork
             }
         }
 
-        public static void Inventory(Game game)
+        public static void Inventory(Game game, CommandContext commandContext)
         {
-            if(game.Player.Inventory.Count == 0)
+            if (game.Player.Inventory.Count == 0)
             {
                 game.Output.WriteLine("You are empty handed.");
             }
             else
             {
-                foreach(Item item in game.Player.Inventory)
+                foreach (Item item in game.Player.Inventory)
                 {
                     game.Output.WriteLine(item.Name);
                 }
             }
         }
 
-        public static void TakeItem()
+        public static void TakeItem(Game game, CommandContext commandContext)
+        {
+            foreach (Item item in game.Player.Location.Items)
+            {
+                if (item.IsTakeable)
+                {
+                    //add to inventory
+                }
+            }
+        }
+
+        public static void DropItem(Game game, CommandContext commandContext)
         {
 
         }
 
-        public static void DropItem()
-        {
+        public static void Reward(Game game, CommandContext commandContext) => game.Player.CurrentScore += 5;
+        public static void Score(Game game, CommandContext commandContext) => game.Output.WriteLine($"Your score would be {game.Player.CurrentScore}, in {game.Player.NumberOfMoves} move(s).");
 
-        }
-
-        public static void Reward(Game game) => game.Player.CurrentScore += 5;
-        public static void Score(Game game) => game.Output.WriteLine($"Your score would be {game.Player.CurrentScore}, in {game.Player.NumberOfMoves} move(s).");
-
-        public static void Quit(Game game)
+        public static void Quit(Game game, CommandContext commandContext)
         {
             game.IsRunning = false;
             game.Output.WriteLine(string.IsNullOrWhiteSpace(game.ExitMessage) ? "Thank you for playing!" : game.ExitMessage);
         }
     }
-    
+
 }
