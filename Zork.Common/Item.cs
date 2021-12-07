@@ -18,6 +18,12 @@ namespace Zork
         [JsonProperty(Order = 3)]
         public bool IsTakeable { get; set; }
 
+        [JsonProperty(Order = 4)]
+        public int Score { get; set; } 
 
+        public Item(string name = null)
+        {
+            Name = name;
+        }
     }
 }

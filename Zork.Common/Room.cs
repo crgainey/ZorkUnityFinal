@@ -70,6 +70,11 @@ namespace Zork
             ItemNames.Clear();
         }
 
+        public void RemoveItems()
+        {
+            //remove
+        }
+
         public void UpdateNeighbors(World world)
         {
             _neighbors.Clear();

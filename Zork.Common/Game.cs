@@ -77,20 +77,30 @@ namespace Zork
 
         private void InputRecievedHandler(object sender, string commandString)
         {
+            string[] splitString = commandString.Split(' ');
             CommandContext commandContext = new CommandContext(this, commandString);
-
-            Room previousRoom = Player.Location;
+            {
+                if (splitString.Length == 1)
+                {
+                    commandContext = new CommandContext(this, commandString, splitString[0]);
+                }
+                else if (splitString.Length == 2)
+                {
+                    commandContext = new CommandContext(this, commandString, splitString[0], splitString[1]);
+                }
+            }
 
             Command foundCommand = null;
             foreach (Command command in Commands.Values)
             {
-                if (command.Verbs.Contains(commandString))
+                if (command.Verbs.Contains(commandContext.Verb))
                 {
                     foundCommand = command;
                     break;
                 }
             }
 
+            Room previousRoom = Player.Location;
             if (foundCommand != null)
             {
                 foundCommand.Action(commandContext);
@@ -139,6 +149,7 @@ namespace Zork
             }
             else
             {
+                game.Output.WriteLine("The items in your inventory are: ");
                 foreach (Item item in game.Player.Inventory)
                 {
                     game.Output.WriteLine(item.Name);
@@ -150,19 +161,72 @@ namespace Zork
         {
             Game game = commandContext.Game;
 
+            string itemNoun;
+            if (commandContext.Noun != null)
+            {
+                itemNoun = commandContext.Noun;
+            }
+            else
+            {
+                itemNoun = null;
+                game.Output.WriteLine("What did you want to take?");
+                return;
+            }
+
+            Item newItem = new Item(itemNoun);
             foreach (Item item in game.Player.Location.Items)
             {
-                if (item.IsTakeable)
+                if (item.Name.ToUpper() == newItem.Name.ToUpper())
                 {
-                    game.Output.WriteLine($"You take {item.Name}");
-                    game.Player.Inventory.Add(item);
+                    newItem = item;
+                    break;
                 }
             }
+
+            if (newItem.IsTakeable)
+            {
+                game.Output.WriteLine($"You take {newItem.Name}");
+                game.Player.Inventory.Add(newItem);
+                game.Player.Location.Items.Remove(newItem);
+                Reward(commandContext);
+            }
+            else
+            {
+                game.Output.WriteLine($"You cannot take {newItem.Name}");
+            }
+
         }
 
         public static void DropItem(CommandContext commandContext)
         {
             Game game = commandContext.Game;
+
+            string itemNoun;
+            if (commandContext.Noun != null)
+            {
+                itemNoun = commandContext.Noun;
+            }
+            else
+            {
+                itemNoun = null;
+                game.Output.WriteLine("What did you want to drop?");
+                return;
+            }
+
+            Item newItem = new Item(itemNoun);
+            foreach (Item item in game.Player.Inventory)
+            {
+                if (item.Name.ToUpper() == newItem.Name.ToUpper())
+                {
+                    newItem = item;
+                    break;
+                }
+            }
+
+            game.Output.WriteLine($"You drop {newItem.Name}");
+            game.Player.Inventory.Remove(newItem);
+            game.Player.Location.Items.Add(newItem);
+
         }
 
         public static void Reward(CommandContext commandContext) => commandContext.Game.Player.CurrentScore += 5;

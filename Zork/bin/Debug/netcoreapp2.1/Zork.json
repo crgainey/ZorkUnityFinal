@@ -10,8 +10,8 @@
           "WEST": "Forest 1"
         },
         "Items": [
-          "A Welcome Mat",
-          "A MailBox"
+          "Mat",
+          "Mailbox"
         ]
         
       },
@@ -76,12 +76,13 @@
     ],
     "Items": [
       {
-        "Name": "A Welcome Mat",
+        "Name": "Mat",
         "Description": "A mat that says welcome.",
-        "IsTakeable": "True"
+        "IsTakeable": "True",
+        "Score" :  2
       },
       {
-        "Name": "A MailBox",
+        "Name": "MailBox",
         "Description": "a mailbox.",
         "IsTakeable": "False"
       }
