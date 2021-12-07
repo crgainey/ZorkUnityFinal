@@ -6,10 +6,10 @@ namespace Zork
 {
     public static class MovementCommands
     {
-        public static void North(Game game, CommandContext commandContext) => Move(game, Directions.North);
-        public static void South(Game game, CommandContext commandContext) => Move(game, Directions.South);
-        public static void West(Game game, CommandContext commandContext) => Move(game, Directions.West);
-        public static void East(Game game, CommandContext commandContext) => Move(game, Directions.East);
+        public static void North(CommandContext commandContext) => Move(commandContext.Game, Directions.North);
+        public static void South(CommandContext commandContext) => Move(commandContext.Game, Directions.South);
+        public static void West(CommandContext commandContext) => Move(commandContext.Game, Directions.West);
+        public static void East(CommandContext commandContext) => Move(commandContext.Game, Directions.East);
 
         public static void Move(Game game, Directions direction)
         {

@@ -1,14 +1,19 @@
 ﻿namespace Zork
 {
-    public struct CommandContext
+    public class CommandContext
     {
+        public Game Game;
         public string CommandString { get; }
-        public Command Command { get; }
+        public string Verb { get; set; }
+        public string Noun { get; set; }
 
-        public CommandContext(string commandString, Command command)
+        public CommandContext(Game game, string commandString, string verb = null, string noun = null)
         {
+            Game = game;
             CommandString = commandString;
-            Command = command;
+            Verb = verb;
+            Noun = noun;
         }
+
     }
 }
