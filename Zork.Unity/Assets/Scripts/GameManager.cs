@@ -30,11 +30,9 @@ public class GameManager : MonoBehaviour
         _game.Player.MovesChanged += (sender, moves) => MovesText.text = moves.ToString();
         _game.Player.ScoreChanged += (sender, score) => ScoreText.text = score.ToString();
 
-        OutputService.WriteLine(string.IsNullOrWhiteSpace(_game.WelcomeMessage) ? "Welcome to Zork!" : _game.WelcomeMessage);
         _game.Start(InputService, OutputService);
 
         CurrentLocationText.text = _game.Player.Location.ToString();
-        Game.Look(_game);
 
     }
 

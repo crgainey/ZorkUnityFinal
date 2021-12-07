@@ -83,7 +83,7 @@
       },
       {
         "Name": "MailBox",
-        "Description": "a mailbox.",
+        "Description": "A rusty looking mailbox.",
         "IsTakeable": "False"
       }
     ]

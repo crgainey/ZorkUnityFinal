@@ -135,7 +135,7 @@ namespace Zork
 
             foreach (Item item in game.Player.Location.Items)
             {
-                game.Output.WriteLine($"{item.Name} {item.Description}");
+                game.Output.WriteLine(item.Description);
             }
         }
 
