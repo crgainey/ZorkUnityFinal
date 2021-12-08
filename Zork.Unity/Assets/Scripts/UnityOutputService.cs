@@ -9,16 +9,16 @@ using System.Linq;
 public class UnityOutputService : MonoBehaviour, IOutputService
 {
     [SerializeField]
-    int MaxEntries = 60;
+    private int MaxEntries = 60;
     
     [SerializeField]
-    Transform OutputTextContainer;
+    private Transform OutputTextContainer;
     
     [SerializeField]
-    TextMeshProUGUI TextLinePrefab;
+    private TextMeshProUGUI TextLinePrefab;
 
     [SerializeField]
-    Image NewLinePrefab;
+    private Image NewLinePrefab;
 
 
     public UnityOutputService() => _entries = new List<GameObject>();

@@ -9,6 +9,7 @@ namespace Zork
         public EventHandler<Room> LocationChanged;
         public EventHandler<int> MovesChanged;
         public EventHandler<int> ScoreChanged;
+        public EventHandler<List<Item>> InventoryChanged;
 
         public World World { get; }
 
@@ -61,6 +62,7 @@ namespace Zork
                 if(_inventory != value)
                 {
                     _inventory = value;
+                    InventoryChanged?.Invoke(this, _inventory);
                 }
             }
         }

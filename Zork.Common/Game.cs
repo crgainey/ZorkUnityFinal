@@ -121,22 +121,22 @@ namespace Zork
         }
         public static void LookStart(Game game)
         {
-            game.Output.WriteLine($"{game.Player.Location}\n {game.Player.Location.Description}");
+            game.Output.WriteLine($"{game.Player.Location}\n {game.Player.Location.Description}\n");
 
             foreach (Item item in game.Player.Location.Items)
             {
-                game.Output.WriteLine(item.Description);
+                game.Output.WriteLine($"{item.Description}\n");
             }
         }
 
         public static void Look(CommandContext commandContext)
         {
             Game game = commandContext.Game;
-            game.Output.WriteLine($"{game.Player.Location}\n {game.Player.Location.Description}");
+            game.Output.WriteLine($"{game.Player.Location}\n {game.Player.Location.Description}\n");
 
             foreach (Item item in game.Player.Location.Items)
             {
-                game.Output.WriteLine(item.Description);
+                game.Output.WriteLine($"{item.Description}\n");
             }
         }
 

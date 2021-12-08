@@ -7,7 +7,7 @@ using UnityEngine.UI;
 public class UnityInputService : MonoBehaviour, IInputService
 {
     [SerializeField]
-    InputField InputField;
+    private InputField InputField;
 
     public event EventHandler<string> InputRecieved;
 

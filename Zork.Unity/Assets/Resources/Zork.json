@@ -3,72 +3,158 @@
     "Rooms": [
       {
         "Name": "West of House",
-        "Description": "This is an open field west of a white house, with a boarded front door.",
+        "Description": "This is an open field west of the white house, with a boarded front door.",
         "Neighbors": {
-          "North": "North of House",
-          "South": "South of House",
-          "West": "Forest 1"
-        }
+          "NORTH": "North of House",
+          "SOUTH": "South of House",
+          "WEST": "Forest 1"
+        },
+        "Items": [
+          "Mailbox",
+          "Mat"
+        ]
+
       },
       {
         "Name": "North of House",
-        "Description": "You are facing the north side of a white house. There is no door here, and all the windows are barred.",
+        "Description": "You are facing the north side of a white hosue. There is no door here, and all the windows are barred.",
         "Neighbors": {
-          "North": "Forest 2",
-          "East": "Behind House",
-          "West": "West of House"
+          "NORTH": "Forest 2",
+          "EAST": "Behind House",
+          "WEST": "West of House"
         }
       },
       {
         "Name": "South of House",
         "Description": "You are facing the south side of a white house. There is no door here, and all the windows are barred.",
         "Neighbors": {
-          "East": "Behind House",
-          "West": "West of House"
+          "EAST": "Behind House",
+          "WEST": "West of House"
         }
       },
       {
         "Name": "Behind House",
         "Description": "You are behind the white house. In one corner of the house there is a small window which is slightly ajar.",
         "Neighbors": {
-          "North": "North of House",
-          "East": "Clearing",
-          "South": "South of House"
+          "NORTH": "North of House",
+          "EAST": "Clearing",
+          "SOUTH": "South of House",
+          "INSIDE": "Kitchen"
         }
       },
       {
         "Name": "Forest 1",
         "Description": "This is a forest, with trees in all directions around you.",
         "Neighbors": {
-          "South": "Forest 3",
-          "East": "West of House"
+          "SOUTH": "Forest 3",
+          "EAST": "West of House"
         }
       },
       {
         "Name": "Forest 2",
-        "Description": "This is a dimly lit forest, with large trees all around. One particularly large tree with some low branches stands here.",
+        "Description": "This is a dimly lit forest, with large trees all around. One particularly large tree with some low branches stands here",
         "Neighbors": {
-          "South": "Clearing",
-          "East": "Clearing"
+          "SOUTH": "Clearing",
+          "EAST": "Clearing",
+          "UP": "Large Tree"
         }
+      },
+      {
+        "Name": "Large Tree",
+        "Description": "You are about 10 feet above the ground nestled among some large branches.The nearest branch above you is above your reach. On the branch is a small birds nest. In the bird's nest is a ",
+        "Neighbors": {
+          "DOWN": "Forest 2"
+        },
+        "Items": [
+          "Egg"
+        ],
+        "Score" :  5
       },
       {
         "Name": "Forest 3",
         "Description": "This is a dimly lit forest, with large trees all around. To the east, there appears to be sunlight.",
         "Neighbors": {
-          "North": "South of House",
-          "East": "Clearing"
+          "NORTH": "South of House",
+          "EAST": "Clearing"
         }
       },
       {
         "Name": "Clearing",
-        "Description": "You are in a clearing, with a forest surrounding you on the west and south.",
+        "Description": "You are in a clearing, with a forest suurounding you on the west and south.",
         "Neighbors": {
-          "West": "Forest 2",
-          "South": "Forest 3"
+          "WEST": "Forest 2",
+          "SOUTH": "Forest 3"
         }
+      },
+      {
+        "Name": "Kitchen",
+        "Description": "You are in the kitchen of the white house. A passage leads to the west and a dark staircase can be seen leading upward.  A table seems to have been used recently for the preparation of food. On the table is an elongated brown sack, smelling of hot peppers. A bottle is sitting on the table.",
+        "Neighbors": {
+          "WEST": "Living Room",
+          "UP": "Attic"
+        },
+        "Items": [
+          "Sack",
+          "Bottle"
+        ], 
+        "Score" :  10
+      },
+      {
+        "Name": "Attic",
+        "Description": "Why on earthwould you want to be up here.",
+        "Neighbors": {
+          "DOWN": "Kitchen"
+        }
+      },
+      {
+        "Name": "Living Room",
+        "Description": "You are in the living room. There is a door to the east, a wooden door with strange gothic lettering to the west, which appears to be nailed shut",
+        "Neighbors": {
+          "EAST" : "Kitchen"
+        },
+        "Items": [
+          "Lantern"
+        ],
+        "Score" :  8
+      }
+    ],
+    "Items": [
+      {
+        "Name": "Mat",
+        "Description": "A rubber mat saying 'Welcome to Zork!' lies by the door.",
+        "IsTakeable": "True",
+        "Score": 2
+      },
+      {
+        "Name": "MailBox",
+        "Description": "There is a small mailbox here.",
+        "IsTakeable": "False"
+      },
+      {
+        "Name": "Egg",
+        "Description": "A jewel-encrusted egg",
+        "IsTakeable": "True",
+        "Score": 5
+      },
+      {
+        "Name": "Bottle",
+        "Description": "The glass bottle contains: A quantity of water",
+        "IsTakeable": "True",
+        "Score": 3
+      },
+      {
+        "Name": "Sack",
+        "Description": "There is someones lunch",
+        "IsTakeable": "False"
+      },
+      {
+        "Name": "Lantern",
+        "Description": "A battery-powered brass lantern",
+        "IsTakeable": "True",
+        "Score": 7
       }
     ]
+
   },
   "StartingLocation": "West of House",
   "WelcomeMessage": "Welcome to Zork!",
