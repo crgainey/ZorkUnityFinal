@@ -50,9 +50,10 @@ namespace Zork
                 { "NORTH", new Command("NORTH", new string[] { "NORTH", "N" }, MovementCommands.North) },
                 { "SOUTH", new Command("SOUTH", new string[] { "SOUTH", "S" }, MovementCommands.South) },
                 { "EAST", new Command("EAST", new string[] { "EAST", "E"}, MovementCommands.West) },
-                { "WEST", new Command("WEST", new string[] { "WEST", "W" }, MovementCommands.East) }
-
-
+                { "WEST", new Command("WEST", new string[] { "WEST", "W" }, MovementCommands.East) },
+                { "UP", new Command("UP", new string[] { "UP" }, MovementCommands.Up) },
+                { "DOWN", new Command("DOWN", new string[] { "DOWN"}, MovementCommands.Down) },
+                { "INSIDE", new Command("INSIDE", new string[] { "INSIDE"}, MovementCommands.Inside) }
             };
 
         }
@@ -124,7 +125,7 @@ namespace Zork
 
             foreach (Item item in game.Player.Location.Items)
             {
-                game.Output.WriteLine($"{item.Name} {item.Description}");
+                game.Output.WriteLine(item.Description);
             }
         }
 

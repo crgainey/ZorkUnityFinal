@@ -10,10 +10,10 @@
           "WEST": "Forest 1"
         },
         "Items": [
-          "Mat",
-          "Mailbox"
+          "Mailbox",
+          "Mat"
         ]
-        
+
       },
       {
         "Name": "North of House",
@@ -38,7 +38,8 @@
         "Neighbors": {
           "NORTH": "North of House",
           "EAST": "Clearing",
-          "SOUTH": "South of House"
+          "SOUTH": "South of House",
+          "INSIDE": "Kitchen"
         }
       },
       {
@@ -54,8 +55,20 @@
         "Description": "This is a dimly lit forest, with large trees all around. One particularly large tree with some low branches stands here",
         "Neighbors": {
           "SOUTH": "Clearing",
-          "EAST": "Clearing"
+          "EAST": "Clearing",
+          "UP": "Large Tree"
         }
+      },
+      {
+        "Name": "Large Tree",
+        "Description": "You are about 10 feet above the ground nestled among some large branches.The nearest branch above you is above your reach. On the branch is a small birds nest. In the bird's nest is a ",
+        "Neighbors": {
+          "DOWN": "Forest 2"
+        },
+        "Items": [
+          "Egg"
+        ],
+        "Score" :  5
       },
       {
         "Name": "Forest 3",
@@ -72,24 +85,78 @@
           "WEST": "Forest 2",
           "SOUTH": "Forest 3"
         }
+      },
+      {
+        "Name": "Kitchen",
+        "Description": "You are in the kitchen of the white house. A passage leads to the west and a dark staircase can be seen leading upward.  A table seems to have been used recently for the preparation of food. On the table is an elongated brown sack, smelling of hot peppers. A bottle is sitting on the table.",
+        "Neighbors": {
+          "WEST": "Living Room",
+          "UP": "Attic"
+        },
+        "Items": [
+          "Sack",
+          "Bottle"
+        ], 
+        "Score" :  10
+      },
+      {
+        "Name": "Attic",
+        "Description": "Why on earthwould you want to be up here.",
+        "Neighbors": {
+          "DOWN": "Kitchen"
+        }
+      },
+      {
+        "Name": "Living Room",
+        "Description": "You are in the living room. There is a door to the east, a wooden door with strange gothic lettering to the west, which appears to be nailed shut",
+        "Neighbors": {
+          "EAST" : "Kitchen"
+        },
+        "Items": [
+          "Lantern"
+        ],
+        "Score" :  8
       }
     ],
     "Items": [
       {
         "Name": "Mat",
-        "Description": "A mat that says welcome.",
+        "Description": "A rubber mat saying 'Welcome to Zork!' lies by the door.",
         "IsTakeable": "True",
-        "Score" :  2
+        "Score": 2
       },
       {
         "Name": "MailBox",
-        "Description": "a mailbox.",
+        "Description": "There is a small mailbox here.",
         "IsTakeable": "False"
+      },
+      {
+        "Name": "Egg",
+        "Description": "A jewel-encrusted egg",
+        "IsTakeable": "True",
+        "Score": 5
+      },
+      {
+        "Name": "Bottle",
+        "Description": "The glass bottle contains: A quantity of water",
+        "IsTakeable": "True",
+        "Score": 3
+      },
+      {
+        "Name": "Sack",
+        "Description": "There is someones lunch",
+        "IsTakeable": "False"
+      },
+      {
+        "Name": "Lantern",
+        "Description": "A battery-powered brass lantern",
+        "IsTakeable": "True",
+        "Score": 7
       }
     ]
 
   },
   "StartingLocation": "West of House",
   "WelcomeMessage": "Welcome to Zork!",
-  "ExitMessage" :  "Thank you for playing!"
+  "ExitMessage": "Thank you for playing!"
 }

@@ -24,6 +24,9 @@ namespace Zork
         [JsonProperty(PropertyName = "Items", Order = 4)]
         private List<string> ItemNames { get; set; } = new List<string>();
 
+        [JsonProperty(Order = 5)]
+        public int Score { get; set; }
+
         [JsonIgnore]
         public IReadOnlyDictionary<Directions, Room> Neighbors => _neighbors;
 

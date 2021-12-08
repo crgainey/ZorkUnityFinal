@@ -8,6 +8,7 @@
         West,
         Up,
         Down,
+        Inside,
         Reward
     }
 }
