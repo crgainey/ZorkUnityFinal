@@ -10,10 +10,10 @@
           "WEST": "Forest 1"
         },
         "Items": [
-          "Mat",
-          "Mailbox"
+          "Mailbox",
+          "Mat"
         ]
-        
+
       },
       {
         "Name": "North of House",
@@ -54,8 +54,19 @@
         "Description": "This is a dimly lit forest, with large trees all around. One particularly large tree with some low branches stands here",
         "Neighbors": {
           "SOUTH": "Clearing",
-          "EAST": "Clearing"
+          "EAST": "Clearing",
+          "UP": "Large Tree"
         }
+      },
+      {
+        "Name": "Large Tree",
+        "Description": "You are about 10 feet above the ground nestled among some large branches.The nearest branch above you is above your reach. On the branch is a small birds nest. In the bird's nest is a ",
+        "Neighbors": {
+          "DOWN": "Forest 2"
+        },
+        "Items": [
+          "Egg"
+        ]
       },
       {
         "Name": "Forest 3",
@@ -77,19 +88,25 @@
     "Items": [
       {
         "Name": "Mat",
-        "Description": "A mat that says welcome.",
+        "Description": "A rubber mat saying 'Welcome to Zork!' lies by the door.",
         "IsTakeable": "True",
-        "Score" :  2
+        "Score": 2
       },
       {
         "Name": "MailBox",
-        "Description": "A rusty looking mailbox.",
+        "Description": "There is a small mailbox here.",
         "IsTakeable": "False"
+      },
+      {
+        "Name": "Egg",
+        "Description": "A jewel-encrusted egg",
+        "IsTakeable": "True",
+          "Score":  5
       }
     ]
 
   },
   "StartingLocation": "West of House",
   "WelcomeMessage": "Welcome to Zork!",
-  "ExitMessage" :  "Thank you for playing!"
+  "ExitMessage": "Thank you for playing!"
 }
